@@ -27,7 +27,7 @@ CFLAGS = -Wall -g -pthread
 #LIBS = -lmylib -lm
 
 # define the C source files
-SRCS = MotorDriver.cpp Controller.cpp Motor.cpp
+SRCS = VehicleDriver.cpp MotorDriver.cpp Motor.cpp
 
 # define the C object files 
 #
@@ -40,7 +40,7 @@ SRCS = MotorDriver.cpp Controller.cpp Motor.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 # define the executable file 
-MAIN = MotorDriver
+MAIN = VehicleDriver
 
 #
 # The following part of the makefile is generic; it can be used to 
