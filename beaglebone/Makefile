@@ -27,7 +27,7 @@ CFLAGS = -Wall -g -pthread
 #LIBS = -lmylib -lm
 
 # define the C source files
-SRCS = VehicleDriver.cpp MotorDriver.cpp Motor.cpp
+SRCS = VehicleDriver.cpp Motor.cpp MotorDriver.cpp ServoDriver.cpp
 
 # define the C object files 
 #

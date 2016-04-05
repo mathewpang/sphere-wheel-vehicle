@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Motor.hpp"
 #include <string>
+#include <unistd.h>
 class MotorDriver
 {
 public:
