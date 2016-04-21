@@ -3,9 +3,9 @@
 #include "ServoDriver.hpp"
 #define MOVE_FORWARD = 1
 
-const float SERVO0_OFFSET = 64.34;
-const float SERVO1_OFFSET = -55.58;
-const float SERVO2_OFFSET = -175.67;
+const float SERVO0_OFFSET = 0;
+const float SERVO1_OFFSET = 0;
+const float SERVO2_OFFSET = -0;
 const float gear_ratio = 2.0;
 
 float convert_angle(int servo_id, float angle, bool &isReversed){
