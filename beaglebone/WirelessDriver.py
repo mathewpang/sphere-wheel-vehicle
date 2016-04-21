@@ -7,8 +7,8 @@ from subprocess import Popen, PIPE, STDOUT
 class WirelessDriver(BaseHTTPRequestHandler):
 
     def __init__(self, *args):
-        self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        self.a = 1
+        #self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        #self.a = 1
         BaseHTTPRequestHandler.__init__(self, *args)
 
     def _set_headers(self):
@@ -30,7 +30,7 @@ class WirelessDriver(BaseHTTPRequestHandler):
         method = data[0]
         value = data[1]
         print('%s' % value)
-        self.p.stdin.write('%s\n' % value)
+        #self.p.stdin.write('%s\n' % value)
         f = open("index.html", "r")
         self.wfile.write(f.read())
         self.end_headers()
