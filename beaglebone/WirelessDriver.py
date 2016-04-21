@@ -29,12 +29,28 @@ class WirelessDriver(BaseHTTPRequestHandler):
         data = self.data_string.split('=')
         method = data[0]
         value = data[1]
-        print('%s' % value)
-        #self.p.stdin.write('%s\n' % value)
-        f = open("index.html", "r")
-        self.wfile.write(f.read())
-        self.end_headers()
+        print(self.data_string)
 
+        if value.isdigit():
+            if method == "Radius":
+                if int(value) < 0 or int(value) >= 127:
+                    print('Radius out of Range!')
+                else:
+                    print('Sending values!')
+                    #self.p.stdin.write(self.data_string)
+                
+            if method == "Angle":
+                if(int(value) < 0 or int(value) >= 360):
+                    print('Angle out of Range!')
+                else:
+                    print('Sending values!')        
+                    #self.p.stdin.write(self.data_string)
+        else:
+            print("Input Values not Valid")
+            
+        f = open("index.html", "r")
+        self.wfile.write(f.read())   
+        self.end_headers()
 
 
 def run(server_class=HTTPServer, handler_class=WirelessDriver, port=8000):
