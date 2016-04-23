@@ -30,17 +30,18 @@ class WirelessDriver(BaseHTTPRequestHandler):
         method = data[0]
         value = data[1]
         print(self.data_string)
+        print(value)
 
         if value.isdigit():
             if method == "Radius":
-                if int(value) < 0 or int(value) >= 127:
+                if int(value) < 0 or int(value) > 127:
                     print('Radius out of Range!')
                 else:
                     print('Sending values!')
                     #self.p.stdin.write(self.data_string)
                 
             if method == "Angle":
-                if(int(value) < 0 or int(value) >= 360):
+                if(int(value) < 0 or int(value) > 360):
                     print('Angle out of Range!')
                 else:
                     print('Sending values!')        

@@ -43,14 +43,17 @@ int main()
     int command = -1;
     MotorDriver* my_Controller = new MotorDriver();
     ServoDriver* servo_controller = new ServoDriver();
+ 
     while(running){
         std::cin >> command;
-        std::cout << "The value you entered is: " << command << "\n";
-        //struct controller_arg my_args;
-        //my_args.c = my_Controller;
-        //my_args.movement = command;
-        //pthread_t thrd;
-        //pthread_create(&thrd, NULL, &MotorDriver::execute, (void*)&my_args);
+        //std::cout << "The value you entered is: " << command << "\n";
+
+        struct controller_arg my_args;
+        my_args.c = my_Controller;
+        my_args.movement = command;
+        pthread_t thrd;
+        pthread_create(&thrd, NULL, &MotorDriver::execute, (void*)&my_args);
+        
         bool isReversed0 = false;
         bool isReversed1 = false;
         bool isReversed2 = false;
