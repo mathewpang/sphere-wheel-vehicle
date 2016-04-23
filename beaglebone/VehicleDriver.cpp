@@ -1,4 +1,5 @@
 #include <pthread.h>
+#include <string>
 #include "MotorDriver.hpp"
 #include "ServoDriver.hpp"
 #define MOVE_FORWARD = 1
@@ -40,27 +41,37 @@ int main()
 {
     std::cout << "Hello World!" << "\n";
     bool running = true;
-    int command = -1;
+    string command;
     MotorDriver* my_Controller = new MotorDriver();
     ServoDriver* servo_controller = new ServoDriver();
  
     while(running){
         std::cin >> command;
-        //std::cout << "The value you entered is: " << command << "\n";
+        std::string s = command;
+        std::string d = "=";
+        std::string token = s.substr(0, s.find(d));
+        //std::cout <<token << std::endl;
+        std::string value_str = s.substr(s.find(d)+1, s.length());
+        std::string::size_type sz;   // alias of size_t
+        int value_int = std::stoi (value_str,&sz);
 
-        struct controller_arg my_args;
-        my_args.c = my_Controller;
-        my_args.movement = command;
-        pthread_t thrd;
-        pthread_create(&thrd, NULL, &MotorDriver::execute, (void*)&my_args);
-        
-        bool isReversed0 = false;
-        bool isReversed1 = false;
-        bool isReversed2 = false;
-        float serv_0 = convert_angle(0, command, isReversed0);
-        float serv_1 = convert_angle(1, command, isReversed1);
-        float serv_2 = convert_angle(2, command, isReversed2);
+        //std::cout <<value << std::endl;   
+        if (token.compare("Radius") == 0){
+            struct controller_arg my_args;
+            my_args.c = my_Controller;
+            my_args.movement = value_int;
+            pthread_t thrd;
+            pthread_create(&thrd, NULL, &MotorDriver::execute, (void*)&my_args);
 
-        servo_controller->manual(serv_0, serv_1, serv_2);
+        } else if (token.compare("Angle") = 0){
+            bool isReversed0 = false;
+            bool isReversed1 = false;
+            bool isReversed2 = false;
+            float serv_0 = convert_angle(0, value_int, isReversed0);
+            float serv_1 = convert_angle(1, value_int, isReversed1);
+            float serv_2 = convert_angle(2, value_int, isReversed2);
+
+            servo_controller->manual(serv_0, serv_1, serv_2);
+        }    
     }
 }
