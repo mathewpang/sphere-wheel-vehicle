@@ -7,8 +7,8 @@ from subprocess import Popen, PIPE, STDOUT
 class WirelessDriver(BaseHTTPRequestHandler):
 
     def __init__(self, *args):
-        #self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        #self.a = 1
+        self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        self.a = 1
         BaseHTTPRequestHandler.__init__(self, *args)
 
     def _set_headers(self):
@@ -38,14 +38,14 @@ class WirelessDriver(BaseHTTPRequestHandler):
                     print('Radius out of Range!')
                 else:
                     print('Sending values!')
-                    #self.p.stdin.write(self.data_string)
+                    self.p.stdin.write(self.data_string)
                 
             if method == "Angle":
                 if(int(value) < 0 or int(value) > 360):
                     print('Angle out of Range!')
                 else:
                     print('Sending values!')        
-                    #self.p.stdin.write(self.data_string)
+                    self.p.stdin.write(self.data_string)
         else:
             print("Input Values not Valid")
             

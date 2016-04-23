@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <string>
+#include <cstdlib>
 #include "MotorDriver.hpp"
 #include "ServoDriver.hpp"
 #define MOVE_FORWARD = 1
@@ -41,7 +42,7 @@ int main()
 {
     std::cout << "Hello World!" << "\n";
     bool running = true;
-    string command;
+    std::string command;
     MotorDriver* my_Controller = new MotorDriver();
     ServoDriver* servo_controller = new ServoDriver();
  
@@ -50,12 +51,15 @@ int main()
         std::string s = command;
         std::string d = "=";
         std::string token = s.substr(0, s.find(d));
-        //std::cout <<token << std::endl;
-        std::string value_str = s.substr(s.find(d)+1, s.length());
-        std::string::size_type sz;   // alias of size_t
-        int value_int = std::stoi (value_str,&sz);
 
-        //std::cout <<value << std::endl;   
+        std::cout <<token << std::endl;
+
+        std::string value_str = s.substr(s.find(d)+1, s.length());
+        //std::string::size_type sz;   // alias of size_t hahahhaa
+        int value_int = std::atoi (value_str.c_str());
+
+        std::cout <<value_str << std::endl;   
+
         if (token.compare("Radius") == 0){
             struct controller_arg my_args;
             my_args.c = my_Controller;
@@ -63,7 +67,7 @@ int main()
             pthread_t thrd;
             pthread_create(&thrd, NULL, &MotorDriver::execute, (void*)&my_args);
 
-        } else if (token.compare("Angle") = 0){
+        } else if (token.compare("Angle") == 0){
             bool isReversed0 = false;
             bool isReversed1 = false;
             bool isReversed2 = false;
