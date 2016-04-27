@@ -53,15 +53,16 @@ public class RestAPIMessenger : MonoBehaviour {
     }
 
 
-    public void sendRadius(int radius)
+    public void sendRadius(double radius)
     {
-        if (radius != prev_radius )
+       int radius_i = (int) radius;
+	   if (radius_i != prev_radius )
         {
             WWWForm radius_form = new WWWForm();
-            radius_form.AddField("Radius", radius.ToString());
+            radius_form.AddField("Radius", radius_i.ToString());
             WWW www_rad = new WWW(url, radius_form);
             //  StartCoroutine(WaitForRequest(www));
-            prev_radius = radius;
+            prev_radius = radius_i;
         }
     }
 
