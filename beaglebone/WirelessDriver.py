@@ -8,7 +8,6 @@ class WirelessDriver(BaseHTTPRequestHandler):
 
     def __init__(self, *args):
         self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-        #self.a = 1
         BaseHTTPRequestHandler.__init__(self, *args)
 
     def _set_headers(self):
@@ -18,10 +17,17 @@ class WirelessDriver(BaseHTTPRequestHandler):
 
     def do_GET(self):
         self._set_headers()
-        f = open("index.html", "r")
-        text = f.read()
-        text = text + "Distance Sensor: 34"
-        self.wfile.write(text)
+        print s.path
+        if(s.path is '/distance/'){
+            self.wfile.write('')
+            self.p.stdin.write('Distance=0');
+            dist = self.p.stdout.readline();
+            self.wfile.write(dist)
+        }
+        else{
+            f = open("index.html", "r")
+            self.wfile.write(f.read())
+        }
 
 
     def do_POST(self):
