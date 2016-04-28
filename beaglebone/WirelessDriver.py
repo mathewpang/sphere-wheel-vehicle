@@ -8,11 +8,7 @@ class WirelessDriver(BaseHTTPRequestHandler):
 
     def __init__(self, *args):
         self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
-<<<<<<< HEAD
         #self.a = 1
-=======
-        self.a = 1
->>>>>>> db32dda0abda11ea1ffcd97b43251131a87d1c61
         BaseHTTPRequestHandler.__init__(self, *args)
 
     def _set_headers(self):
