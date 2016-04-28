@@ -8,7 +8,11 @@ class WirelessDriver(BaseHTTPRequestHandler):
 
     def __init__(self, *args):
         self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+<<<<<<< HEAD
         #self.a = 1
+=======
+        self.a = 1
+>>>>>>> db32dda0abda11ea1ffcd97b43251131a87d1c61
         BaseHTTPRequestHandler.__init__(self, *args)
 
     def _set_headers(self):
@@ -35,7 +39,6 @@ class WirelessDriver(BaseHTTPRequestHandler):
             value = data1[1]
             print(data)
             print(value)
-
             if value.isdigit():
                 if method == "Radius":
                     if int(value) < 0 or int(value) > 127:
@@ -48,11 +51,7 @@ class WirelessDriver(BaseHTTPRequestHandler):
                     if(int(value) < 0 or int(value) > 360):
                         print('Angle out of Range!')
                     else:
-                        print('Sending values!')        
-                        self.p.stdin.write(data + '\n')
-            else:
-                print("Input Values not Valid")
-            
+                        print('Sending values!')            
         f = open("index.html", "r")
         self.wfile.write(f.read())   
         self.end_headers()
