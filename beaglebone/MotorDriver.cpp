@@ -42,22 +42,22 @@ void* MotorDriver::execute(void * arguments)
 {
   std::cout << "Executing Command\n";
   struct controller_arg *args = (struct controller_arg *)arguments;
-  if(args->movement == 1){
-   ((MotorDriver *)args->c)->moveForward(args->movement); 
-  }
-  else if(args->movement == 0){
-    ((MotorDriver *)args->c)->stop();
-  }
+  ((MotorDriver *)args->c)->moveForward(args->movement); 
+
 }
 
 void* MotorDriver::moveForward(int movement)
 {
   std::cout << "Moving forward " << movement << "\n";
-  motor_zero->setSpeed(0x7F);
+  motor_zero->setSpeed(movement);
+  motor_one->setSpeed(movement);
+  motor_two->setSpeed(movement);
 }
 
 void* MotorDriver::stop()
 {
   std::cout << "Stopping " << "\n";
   motor_zero->setSpeed(0x00);
+  motor_one->setSpeed(0x00);
+  motor_two->setSpeed(0x00);
 }

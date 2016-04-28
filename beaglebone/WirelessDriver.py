@@ -7,7 +7,7 @@ from subprocess import Popen, PIPE, STDOUT
 class WirelessDriver(BaseHTTPRequestHandler):
 
     def __init__(self, *args):
-        #self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+        self.p = Popen(['./VehicleDriver'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
         #self.a = 1
         BaseHTTPRequestHandler.__init__(self, *args)
 
@@ -19,35 +19,39 @@ class WirelessDriver(BaseHTTPRequestHandler):
     def do_GET(self):
         self._set_headers()
         f = open("index.html", "r")
-        self.wfile.write(f.read())
+        text = f.read()
+        text = text + "Distance Sensor: 34"
+        self.wfile.write(text)
 
 
     def do_POST(self):
         self._set_headers()
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
         print "POST!"
-        data = self.data_string.split('=')
-        method = data[0]
-        value = data[1]
-        print(self.data_string)
-        print(value)
+        data2 = self.data_string.split('&')
+        for data in data2:
+            data1 = data.split('=')
+            method = data1[0]
+            value = data1[1]
+            print(data)
+            print(value)
 
-        if value.isdigit():
-            if method == "Radius":
-                if int(value) < 0 or int(value) > 127:
-                    print('Radius out of Range!')
-                else:
-                    print('Sending values!')
-                    #self.p.stdin.write(self.data_string)
-                
-            if method == "Angle":
-                if(int(value) < 0 or int(value) > 360):
-                    print('Angle out of Range!')
-                else:
-                    print('Sending values!')        
-                    #self.p.stdin.write(self.data_string)
-        else:
-            print("Input Values not Valid")
+            if value.isdigit():
+                if method == "Radius":
+                    if int(value) < 0 or int(value) > 127:
+                        print('Radius out of Range!')
+                    else:
+                        print('Sending values!')
+                        self.p.stdin.write(data + '\n')
+                    
+                if method == "Angle":
+                    if(int(value) < 0 or int(value) > 360):
+                        print('Angle out of Range!')
+                    else:
+                        print('Sending values!')        
+                        self.p.stdin.write(data + '\n')
+            else:
+                print("Input Values not Valid")
             
         f = open("index.html", "r")
         self.wfile.write(f.read())   

@@ -13,6 +13,11 @@ Servo::Servo(int file_d, int servo_channel, int offset) {
     this->file = file_d;
     this->servo_channel = servo_channel;
     this->angleOffset = offset;
+    if (servo_channel == 0) {
+        this->pulseRange = 1150 ;
+    } else {
+        this->pulseRange = 900;
+    }
     setSpeedLimit(0);
     setAccelLimit(0);
 }
@@ -28,7 +33,7 @@ int Servo::setAngle(float angle) {
 int Servo::getPulseWidth(float angle) {
     //Pulse width is returned in quarter microseconds.
     //Angle should be in degrees.
-    return (int)(NEUTRALPULSE + (angle / SERVORANGE) * PULSERANGE) * CONVERTTOQTRUSEC;
+    return (int)(NEUTRALPULSE + (angle / SERVORANGE) * this->pulseRange) * CONVERTTOQTRUSEC;
 }
 
 int Servo::getPosition() {

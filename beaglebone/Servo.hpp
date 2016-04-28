@@ -16,6 +16,7 @@ private:
     int angleOffset;
     int file;
     int servo_channel;
+    int pulseRange;
     int getPulseWidth(float angle);
     int setSpeedLimit(int speed);
     int setAccelLimit(int accel);
